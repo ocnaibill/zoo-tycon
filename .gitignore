@@ -1,0 +1,17 @@
+# Godot 4
+.godot/
+/android/
+
+# .NET / C#
+bin/
+obj/
+.vs/
+*.user
+
+# Exports
+build/
+export/
+
+# Editors
+.idea/
+.vscode/
