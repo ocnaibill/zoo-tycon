@@ -115,8 +115,8 @@ O arquivo [`.mcp.json`](.mcp.json) já está no repositório e aponta para `http
 
 Para usar:
 
-1. Abra o projeto no Godot (a compilação do C# carrega o addon).
-2. No painel do addon (**AI Game Developer**), escolha o modo **Custom** com a URL `http://localhost:8080` e inicie o servidor local (**Start Server**). Na primeira vez ele baixa o binário do servidor para `.ai-game-dev/`, que o Git ignora.
+1. Abra o projeto no Godot (a compilação do C# carrega o addon). O arquivo [`.env`](.env) do projeto já força o modo **Custom** em `http://localhost:8080`, para o addon **não** tentar a nuvem (`ai-game.dev`), que é o padrão dele.
+2. No painel do addon (**AI Game Developer**), confira que o modo é **Custom** com a URL `http://localhost:8080` e inicie o servidor local (**Start Server**). Na primeira vez ele baixa o binário do servidor para `.godot/mcp-server/`, que o Git ignora.
 3. Abra o agente de IA na pasta do projeto. O Claude Code lê o `.mcp.json` e pede para aprovar o servidor `ai-game-developer`.
 
 Para outros agentes (Cursor, VS Code, etc.), instale o CLI e gere a configuração:
@@ -126,6 +126,11 @@ npm install -g godot-cli
 godot-cli setup-mcp --list
 godot-cli setup-mcp <agente> . --url http://localhost:8080 --no-pin
 ```
+
+**Problemas conhecidos:**
+
+- **Linux com IPv6 desativado:** o servidor tenta escutar em `::1` e fecha logo ao iniciar (`SocketException 99: Cannot assign requested address`). Ative o loopback IPv6: `sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=0`. Vale até reiniciar. Windows normalmente não tem esse problema.
+- **Aviso `could not resolve 'System.Diagnostics.Process.resources'` no Output:** é inofensivo.
 
 **Cuidados:**
 
