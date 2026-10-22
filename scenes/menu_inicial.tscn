@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://cy56e8i1eiq4n"]
+
+[ext_resource type="Script" path="res://scripts/MenuInicial.cs" id="1_40mju"]
+
+[node name="MenuInicial" type="Control" unique_id=503969395]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_40mju")
+
+[node name="Fundo" type="ColorRect" parent="." unique_id=1400086456]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.18431373, 0.2901961, 0.16862746, 1)
+
+[node name="Centro" type="CenterContainer" parent="." unique_id=825165906]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Caixa" type="VBoxContainer" parent="Centro" unique_id=1926859429]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Titulo" type="Label" parent="Centro/Caixa" unique_id=1276471619]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "Refúgio do Cerrado"
+horizontal_alignment = 1
+
+[node name="Subtitulo" type="Label" parent="Centro/Caixa" unique_id=453144261]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Gestão de um zoológico de acolhimento de animais do Cerrado"
+horizontal_alignment = 1
+
+[node name="BotaoJogar" type="Button" parent="Centro/Caixa" unique_id=292448070]
+custom_minimum_size = Vector2(260, 48)
+layout_mode = 2
+text = "Jogar"
+
+[node name="BotaoSair" type="Button" parent="Centro/Caixa" unique_id=1221129516]
+custom_minimum_size = Vector2(260, 48)
+layout_mode = 2
+text = "Sair"
