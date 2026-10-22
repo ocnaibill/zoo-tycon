@@ -4,4 +4,15 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>RefugioDoCerrado</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="com.IvanMurzak.ReflectorNet" Version="5.4.3" />
+    <PackageReference Include="com.IvanMurzak.McpPlugin" Version="8.11.0" />
+    <PackageReference Include="com.IvanMurzak.Rql" Version="0.1.1" Condition="'$(Configuration)' != 'ExportDebug' and '$(Configuration)' != 'ExportRelease'" />
+    <PackageReference Include="com.IvanMurzak.CodeExec" Version="0.2.1" Condition="'$(GodotMcpCodeExecInGame)' == 'true' or ('$(Configuration)' != 'ExportDebug' and '$(Configuration)' != 'ExportRelease')" />
+    <PackageReference Include="com.IvanMurzak.CodeExec.Roslyn" Version="0.2.1" Condition="'$(GodotMcpCodeExecInGame)' == 'true' or ('$(Configuration)' != 'ExportDebug' and '$(Configuration)' != 'ExportRelease')" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" Condition="'$(GodotMcpCodeExecInGame)' == 'true' or ('$(Configuration)' != 'ExportDebug' and '$(Configuration)' != 'ExportRelease')" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="addons/godot_mcp/extensions.catalog.json" LogicalName="Godot-MCP.extensions.catalog.json" />
+  </ItemGroup>
 </Project>
