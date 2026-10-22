@@ -11,7 +11,7 @@
     <PackageReference Include="com.IvanMurzak.CodeExec" Version="0.2.1" Condition="'$(GodotMcpCodeExecInGame)' == 'true' or ('$(Configuration)' != 'ExportDebug' and '$(Configuration)' != 'ExportRelease')" />
     <PackageReference Include="com.IvanMurzak.CodeExec.Roslyn" Version="0.2.1" Condition="'$(GodotMcpCodeExecInGame)' == 'true' or ('$(Configuration)' != 'ExportDebug' and '$(Configuration)' != 'ExportRelease')" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" Condition="'$(GodotMcpCodeExecInGame)' == 'true' or ('$(Configuration)' != 'ExportDebug' and '$(Configuration)' != 'ExportRelease')" />
-  </ItemGroup>
+  <PackageReference Include="com.IvanMurzak.Godot.MCP.Particles" Version="*" /><PackageReference Include="com.IvanMurzak.Godot.MCP.Tilemap" Version="*" /><PackageReference Include="com.IvanMurzak.Godot.MCP.Navigation" Version="*" /><PackageReference Include="com.IvanMurzak.Godot.MCP.Animation" Version="*" /><PackageReference Include="com.IvanMurzak.Godot.MCP.CSG" Version="*" /><PackageReference Include="com.IvanMurzak.Godot.MCP.GridMap" Version="*" /><PackageReference Include="com.IvanMurzak.Godot.MCP.PhantomCamera" Version="*" /><PackageReference Include="com.IvanMurzak.Godot.MCP.Beehave" Version="*" /><PackageReference Include="com.IvanMurzak.Godot.MCP.Dialogic" Version="*" /><PackageReference Include="com.IvanMurzak.Godot.MCP.Terrain3D" Version="*" /></ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="addons/godot_mcp/extensions.catalog.json" LogicalName="Godot-MCP.extensions.catalog.json" />
   </ItemGroup>
