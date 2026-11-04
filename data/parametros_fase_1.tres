@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ParametrosFase" format=3]
+
+[ext_resource type="Script" path="res://scripts/Nucleo/ParametrosFase.cs" id="1"]
+
+[resource]
+script = ExtResource("1")
+Nome = "Primeiro acolhimento"
+Animal = "Lobo-guará"
+Rodadas = 3
+SaldoInicial = 550
+CustoRecinto = 450
+OperacaoPorRecinto = 20
+ReceitaBase = 40
+ReceitaPorPontoBemEstar = 0.8
+CustoAlimentacao = 40
+CustoAgua = 15
+CustoManutencao = 30
+NecessidadeInicial = 70
+EfeitoCuidado = 50
+QuedaAlimentacao = 25
+QuedaAgua = 25
+QuedaManutencao = 15
+MetaBemEstar = 70
+NecessidadeMinima = 40
+ReservaMinima = 0
