@@ -54,17 +54,21 @@ Se os arquivos de imagem aparecerem como textos pequenos de poucas linhas (ponte
 2. Na primeira abertura o Godot importa os recursos e compila o C#. Isso pode levar alguns minutos.
 3. Se aparecer erro de compilação ou o plugin não carregar, vá em **Build** (martelo no topo do editor) e compile de novo, ou rode `dotnet build` na pasta do projeto.
 
-Para jogar, aperte **F5**. A cena principal é `scenes/main.tscn`.
+Para jogar, aperte **F5**. A cena principal é `scenes/menu_inicial.tscn` (Jogar abre a fase 1).
 
 ### 5. Primeiro teste
 
-Ao rodar, o painel **Output** deve mostrar:
+Aperte F5, clique em **Jogar** e leia as instruções. Se a fase 1 abrir, o ambiente está funcionando.
 
-```
-Refúgio do Cerrado iniciado.
+Testes automáticos (sem abrir janela), a partir da pasta do projeto:
+
+```bash
+dotnet build
+godot-mono --headless --path . res://scenes/testes/teste_nucleo.tscn   # prova de balanceamento (todas as estratégias)
+godot-mono --headless --path . res://scenes/testes/teste_fase_1.tscn   # joga a fase 1 pela interface
 ```
 
-Se aparecer, o ambiente está funcionando.
+Os dois terminam com `RESULTADO: OK`. Os valores da economia ficam em [`data/parametros_fase_1.tres`](data/parametros_fase_1.tres) (editável no Inspetor do Godot) e as regras em `scripts/Nucleo/`.
 
 ---
 
