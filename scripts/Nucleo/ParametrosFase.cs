@@ -18,8 +18,9 @@ public partial class ParametrosFase : Resource
 	[Export] public int SaldoInicial { get; set; } = 550;
 	[Export] public int CustoRecinto { get; set; } = 450;
 	[Export] public int OperacaoPorRecinto { get; set; } = 20;
-	[Export] public int ReceitaBase { get; set; } = 40;
-	[Export] public float ReceitaPorPontoBemEstar { get; set; } = 0.8f;
+	[Export] public int PrecoIngresso { get; set; } = 2;
+	[Export] public int VisitantesBase { get; set; } = 20;
+	[Export] public float VisitantesPorPontoBemEstar { get; set; } = 0.4f;
 
 	[ExportGroup("Cuidados (custo por rodada)")]
 	[Export] public int CustoAlimentacao { get; set; } = 40;

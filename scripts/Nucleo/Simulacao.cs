@@ -13,6 +13,7 @@ public sealed class ResumoRodada
 	public int Rodada;
 	public int SaldoAnterior;
 	public int Receita;
+	public int Visitantes;
 	public int DespesasRecorrentes;
 	public int DespesasCuidados;
 	public int Investimentos;
@@ -83,6 +84,7 @@ public sealed class Simulacao
 	public int DespesaCuidados => _planejados.Sum(Custo);
 	public int DespesaPrevista => DespesaRecorrente + DespesaCuidados;
 	public int ReceitaPrevista => ReceitaPara(BemEstarPrevisto);
+	public int VisitantesPrevistos => VisitantesPara(BemEstarPrevisto);
 
 	/// <summary>Valor da necessidade ao fim da rodada com os cuidados planejados hoje.</summary>
 	public int NecessidadePrevista(Cuidado c) => !AnimalAcolhido
@@ -95,8 +97,11 @@ public sealed class Simulacao
 	/// <summary>Saldo ao fim da rodada se nada mais mudar. Bate com o resultado de Encerrar().</summary>
 	public int SaldoPrevisto => Saldo - DespesaPrevista + ReceitaPrevista;
 
-	int ReceitaPara(int bemEstar) =>
-		AnimalAcolhido ? P.ReceitaBase + (int)Math.Round(bemEstar * P.ReceitaPorPontoBemEstar) : 0;
+	/// <summary>Visitantes da rodada: crescem com o bem-estar do animal (sem animal, ninguém visita).</summary>
+	public int VisitantesPara(int bemEstar) =>
+		AnimalAcolhido ? P.VisitantesBase + (int)Math.Round(bemEstar * P.VisitantesPorPontoBemEstar) : 0;
+
+	int ReceitaPara(int bemEstar) => VisitantesPara(bemEstar) * P.PrecoIngresso;
 
 	public bool PodeConstruir =>
 		Estado == EstadoFase.EmAndamento && !RecintoConstruido
@@ -174,9 +179,10 @@ public sealed class Simulacao
 		}
 
 		r.BemEstarNovo = BemEstar;
-		r.Receita = ReceitaPara(r.BemEstarNovo);
+		r.Visitantes = VisitantesPara(r.BemEstarNovo);
+		r.Receita = r.Visitantes * P.PrecoIngresso;
 		if (AnimalAcolhido)
-			r.Mensagens.Add($"Visitação: ${P.ReceitaBase} base + bem-estar {r.BemEstarNovo} × {P.ReceitaPorPontoBemEstar:0.0} = ${r.Receita}.");
+			r.Mensagens.Add($"Visitação: {P.VisitantesBase} visitantes base + bem-estar {r.BemEstarNovo} × {P.VisitantesPorPontoBemEstar:0.0} = {r.Visitantes} visitantes × ${P.PrecoIngresso} de ingresso = ${r.Receita}.");
 		else
 			r.Mensagens.Add("Sem animal acolhido, não há visitação nem receita.");
 

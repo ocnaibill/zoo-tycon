@@ -32,6 +32,9 @@ public partial class TesteCaptura : Node
 		fase.GetNode<BaseButton>("%BotaoEncerrar").EmitSignal(BaseButton.SignalName.Pressed);
 		await Frames(3);
 		await Salvar(dir, "5_resumo");
+		ClicaModal();
+		await ToSignal(GetTree().CreateTimer(5.0), Godot.Timer.SignalName.Timeout);
+		await Salvar(dir, "6_visitantes");
 		GetTree().Quit();
 	}
 

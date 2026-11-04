@@ -63,6 +63,7 @@ public partial class TesteFase1 : Node
 		Confere(!f.GetNode<Button>("%BotaoConstruir").Disabled, "ponto 1 livre permite construir");
 		Clica(f, "BotaoConstruir");
 		Confere(Texto(f, "Saldo") == "Saldo: $100", $"construir cobra 450 na hora ({Texto(f, "Saldo")})");
+		Confere(f.GetNode<FluxoVisitantes>("%Visitantes").EmCena == 0, "sem animal ninguém visita antes de construir");
 		Confere(M(f).Visible && TituloModal(f).Contains("hóspede"), "animal acolhido por evento narrativo");
 		ClicaModal(f);
 
@@ -71,10 +72,14 @@ public partial class TesteFase1 : Node
 		Confere(BotaoCuidado(f, 2).Disabled, "manutenção bloqueada: não cabe no saldo");
 		var previsto = Texto(f, "Previsao");
 		GD.Print("  previsão: " + previsto);
+		Confere(previsto.Contains("visitantes"), "previsão mostra visitantes × ingresso");
+		await ToSignal(GetTree().CreateTimer(1.6), Godot.Timer.SignalName.Timeout);
+		Confere(f.GetNode<FluxoVisitantes>("%Visitantes").EmCena > 0, $"visitantes aparecem no mapa ({f.GetNode<FluxoVisitantes>("%Visitantes").EmCena})");
 		Clica(f, "BotaoEncerrar");
 		Confere(M(f).Visible && TituloModal(f).Contains("Rodada 1"), "resumo da rodada 1 aparece");
 		var corpo = M(f).GetNode<RichTextLabel>("%Corpo").Text;
 		Confere(corpo.Contains("Saldo anterior") && corpo.Contains("Receita") && corpo.Contains("Cuidados"), "resumo mostra saldo, receita e cuidados");
+		Confere(corpo.Contains("visitantes"), "resumo mostra a conta de visitantes × ingresso");
 		Confere(corpo.Contains("Alimentação") && corpo.Contains("Manutenção"), "resumo explica a causa de cada necessidade");
 		ClicaModal(f);
 		Confere(Texto(f, "Rodada") == "Rodada 2/3", "avançou para a rodada 2");

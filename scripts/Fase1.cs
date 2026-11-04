@@ -18,6 +18,7 @@ public partial class Fase1 : Control
 	bool _fim;
 
 	PontoRecinto[] _pontos;
+	FluxoVisitantes _fluxo;
 	Label _tituloFase, _rodada, _saldo, _previsao, _mensagem, _bemEstarTexto;
 	RichTextLabel _objetivo, _infoPonto;
 	Button _botaoConstruir, _botaoFicha, _botaoEncerrar;
@@ -56,6 +57,10 @@ public partial class Fase1 : Control
 		}
 
 		CriarLinhasDeCuidado();
+
+		_fluxo = GetNode<FluxoVisitantes>("%Visitantes");
+		var p1 = _pontos[0];
+		_fluxo.Configurar(new Vector2(p1.Position.X + p1.Size.X / 2, p1.Position.Y + p1.Size.Y + 14), 260f);
 
 		_botaoConstruir.Pressed += Construir;
 		_botaoFicha.Pressed += () => MostrarFicha(null);
@@ -176,7 +181,7 @@ public partial class Fase1 : Control
 		_saldo.Text = $"Saldo: ${_sim.Saldo}";
 		_previsao.Text =
 			$"Previsão desta rodada: gastos ${_sim.DespesaPrevista} (operação ${_sim.DespesaRecorrente} + cuidados ${_sim.DespesaCuidados})  ·  " +
-			$"receita ${_sim.ReceitaPrevista}  ·  saldo ao fim ${_sim.SaldoPrevisto}";
+			$"receita ${_sim.ReceitaPrevista} ({_sim.VisitantesPrevistos} visitantes × ${P.PrecoIngresso})  ·  saldo ao fim ${_sim.SaldoPrevisto}";
 
 		foreach (var c in Simulacao.Todos)
 		{
@@ -213,6 +218,7 @@ public partial class Fase1 : Control
 		}
 
 		AtualizarInfoPonto();
+		_fluxo.DefinirVisitantes(_sim.VisitantesPrevistos);
 		_botaoFicha.Disabled = !_sim.AnimalAcolhido;
 		_botaoEncerrar.Disabled = _fim;
 	}
@@ -256,6 +262,7 @@ public partial class Fase1 : Control
 			"[b]Como jogar[/b]\n" +
 			"•  Selecione o [b]Ponto 1[/b] no mapa e construa o recinto.\n" +
 			"•  Em cada rodada, marque os [b]cuidados[/b] (alimentação, água, manutenção). Eles custam dinheiro e são cobrados no fim da rodada.\n" +
+			"•  Os [b]visitantes[/b] pagam ingresso; quanto melhor o bem-estar do animal, mais gente visita o refúgio.\n" +
 			"•  A [b]previsão[/b] mostra gastos, receita e saldo antes de você decidir.\n" +
 			"•  Clique em [b]Encerrar rodada[/b] para ver o que aconteceu e por quê.\n\n" +
 			$"[b]Objetivo:[/b] bem-estar ≥ {P.MetaBemEstar} ao fim da rodada {P.Rodadas}, sem deixar nenhuma necessidade abaixo de {P.NecessidadeMinima} e sem saldo negativo.  (Esc: pausa)",
@@ -281,7 +288,7 @@ public partial class Fase1 : Control
 		t.Append("[table=2]");
 		void Linha(string a, string b) => t.Append($"[cell]{a}[/cell][cell][right]{b}[/right][/cell]");
 		Linha("Saldo anterior", $"${r.SaldoAnterior}");
-		Linha("+ Receita de visitação", $"${r.Receita}");
+		Linha($"+ Receita de visitação ({r.Visitantes} visitantes × ${P.PrecoIngresso})", $"${r.Receita}");
 		Linha("− Despesas recorrentes (operação)", $"${r.DespesasRecorrentes}");
 		Linha("− Cuidados", $"${r.DespesasCuidados}");
 		Linha("− Investimentos", $"${r.Investimentos}");
