@@ -101,11 +101,21 @@ CREDITS.md registro de autoria, origem e licença de todo recurso externo
 - Confira com `git lfs ls-files` se os binários de arte e áudio estão indo pelo LFS. Se um `.png` novo não aparecer na lista, o `git lfs install` não foi feito na sua máquina.
 - Não commite as pastas `.godot/`, `bin/`, `obj/` e `.ai-game-dev/`. Elas já estão no `.gitignore`.
 
-### Exportar o jogo (Windows)
+### Exportar o jogo (Windows e macOS)
 
-1. No Godot: **Project → Export → Add… → Windows Desktop**.
-2. Na primeira vez, baixe os *export templates* quando o editor pedir.
-3. Exporte para uma pasta fora do repositório, ou dentro de `build/` (ignorada pelo Git).
+Os presets `Windows Desktop` e `macOS` já estão em [`export_presets.cfg`](export_presets.cfg). Falta só instalar uma vez os *export templates* da **mesma versão do editor**, na versão **.NET**:
+
+1. No Godot: **Editor → Gerenciar Modelos de Exportação → Baixar e instalar** (4.7.2 .NET). Ou baixe `Godot_v4.7.2-stable_mono_export_templates.tpz` em [godotengine.org/download/archive](https://godotengine.org/download/archive/4.7.2-stable/) e use **Instalar do arquivo**.
+2. Exporte pelo editor (**Project → Export**) ou pelo terminal:
+
+```bash
+godot-mono --headless --path . --export-release "Windows Desktop"   # build/windows/RefugioDoCerrado.exe + pasta data_...
+godot-mono --headless --path . --export-release "macOS"             # build/macos/RefugioDoCerrado.zip
+```
+
+- **Windows:** distribua o `.exe` **junto da pasta `data_RefugioDoCerrado_windows_x86_64`** (não separe). Sem assinatura, o SmartScreen avisa "app desconhecido": *Mais informações → Executar assim mesmo*.
+- **macOS:** o build é *universal* (roda nativo em Apple Silicon e em Intel) e **não assinado**. No Mac: descompacte, clique com o botão direito no `.app` → *Abrir*, ou rode `xattr -cr "Refúgio do Cerrado.app"` e abra.
+- A pasta `build/` está no `.gitignore`: os executáveis **não** vão para o Git. Publique-os em *Releases* do GitHub.
 
 Teste o executável em outro computador antes de cada marco de entrega.
 

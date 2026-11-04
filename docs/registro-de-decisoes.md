@@ -11,6 +11,7 @@ Controle de mudanças (item 4.10 do Plano de Projeto). Cada linha: o que mudou, 
 | 2026-10-22 | Git LFS para arte, áudio e fontes; `CREDITS.md` obrigatório para todo recurso externo | Evitar repositório pesado e problemas de licença |
 | 2026-11-03 | Protótipo = **fatia vertical da fase 1 em graybox** | Prazo de 04/11; fases 2 e 3 e árvores ficam para depois do protótipo |
 | 2026-11-03 | Animal da fase 1: **lobo-guará** | Citado primeiro no GDD; espécie do tatu ainda indefinida |
+| 2026-11-03 | macOS exportado como **universal**, não só arm64 | O template oficial só traz o binário universal e o Godot não extrai o arm64 no Linux; roda nativo em Apple Silicon |
 
 ## Diferenças em relação ao GDD do Marco 1
 
@@ -39,6 +40,7 @@ Todos os números econômicos desta versão foram **propostos pelo desenvolvedor
 | 2026-11-03 | Fase 1 jogável em graybox: mapa, construir, acolher, cuidados, rodadas, resultado, pausa, ficha provisória |
 | 2026-11-03 | Visitantes: receita = visitantes × ingresso e visitantes decorativos no mapa |
 | 2026-11-03 | Documentação em Markdown em `docs/` |
+| 2026-11-03 | Export para Windows (x86_64) e macOS (universal, sem assinatura) configurado em `export_presets.cfg`; `import_etc2_astc` habilitado (exigido pelo export macOS) |
 
 ## Pendências
 
@@ -47,5 +49,5 @@ Todos os números econômicos desta versão foram **propostos pelo desenvolvedor
 - [ ] Pesquisar e registrar as fontes das fichas educativas (B08).
 - [ ] Mecânica de atratividade (aparência/arborização) para as fases 2 e 3.
 - [ ] Testes com jogadores externos e recalibração (B13).
-- [ ] Exportar a build para Windows (exige instalar os *export templates* do Godot 4.7.2 .NET).
+- [ ] Testar as builds em máquinas reais: o Windows só foi testado sob Wine (abre, inicializa o .NET e carrega o menu) e o macOS não foi executado. O macOS não é assinado nem notarizado.
 - [ ] Decidir o destino de `scenes/main.tscn` e `scripts/Main.cs` (restos do esqueleto inicial, sem uso).

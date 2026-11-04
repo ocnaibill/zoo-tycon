@@ -41,11 +41,19 @@ Quadradinhos entram pela esquerda, andam pela trilha até o recinto, ficam um in
 - Segundo e terceiro animais (tamanduá-bandeira e tatu, cuja espécie ainda não foi definida).
 - Arte, áudio e animações finais. O animal é um quadrado laranja.
 - Tutorial além da tela de instruções.
-- Build executável para Windows (faltam os *export templates* do Godot).
 
 ## Conteúdo educativo
 
 A ficha do lobo-guará (*Chrysocyon brachyurus*) é **texto provisório**: identificação, ambiente, alimentação e conservação, escritos sem fonte registrada. Antes de qualquer versão final é preciso pesquisar, citar as fontes e revisar (backlog **B08**, Gabriel).
+
+## Builds
+
+| Plataforma | Arquivo | Observação |
+|---|---|---|
+| Windows x86_64 | `RefugioDoCerrado-windows-x64.zip` (exe + pasta `data_...`) | Não assinado: o SmartScreen avisa. Testado só sob Wine |
+| macOS (universal) | `RefugioDoCerrado-macos-universal.zip` | Não assinado nem notarizado: abrir com botão direito → Abrir. Não testado em um Mac |
+
+Como gerar: seção *Exportar o jogo* do `README.md` da raiz. Os executáveis não vão para o Git.
 
 ## Como rodar e verificar
 
@@ -56,7 +64,7 @@ A ficha do lobo-guará (*Chrysocyon brachyurus*) é **texto provisório**: ident
 
 | ID | Item | Situação |
 |---|---|---|
-| B04 | Projeto Godot, Git e build mínimo | Feito (build executável pendente) |
+| B04 | Projeto Godot, Git e build mínimo | Feito (builds Windows e macOS geradas; teste em máquina real pendente) |
 | B05 | Mapa e pontos selecionáveis | Feito em graybox (construir 1 recinto) |
 | B06 | Rodada, saldo e previsão | Feito; tabela em `data/parametros_fase_1.tres` |
 | B07 | Cuidados e feedback | Feito em graybox |
