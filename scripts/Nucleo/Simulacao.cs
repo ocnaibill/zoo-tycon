@@ -82,10 +82,17 @@ public sealed class Simulacao
 	public int DespesaRecorrente => RecintoConstruido ? P.OperacaoPorRecinto : 0;
 	public int DespesaCuidados => _planejados.Sum(Custo);
 	public int DespesaPrevista => DespesaRecorrente + DespesaCuidados;
-	public int ReceitaPrevista => ReceitaPara(BemEstar);
+	public int ReceitaPrevista => ReceitaPara(BemEstarPrevisto);
+
+	/// <summary>Valor da necessidade ao fim da rodada com os cuidados planejados hoje.</summary>
+	public int NecessidadePrevista(Cuidado c) => !AnimalAcolhido
+		? 0
+		: Math.Clamp(Math.Clamp(_necessidades[(int)c] + (Planejado(c) ? P.EfeitoCuidado : 0), 0, 100) - Queda(c), 0, 100);
+
+	public int BemEstarPrevisto => AnimalAcolhido ? (int)Math.Round(Todos.Average(c => (double)NecessidadePrevista(c))) : 0;
 	public int SaldoDisponivel => Saldo - DespesaPrevista;
 
-	/// <summary>Saldo esperado ao fim da rodada se nada mais mudar (receita calculada com o bem-estar de hoje).</summary>
+	/// <summary>Saldo ao fim da rodada se nada mais mudar. Bate com o resultado de Encerrar().</summary>
 	public int SaldoPrevisto => Saldo - DespesaPrevista + ReceitaPrevista;
 
 	int ReceitaPara(int bemEstar) =>
