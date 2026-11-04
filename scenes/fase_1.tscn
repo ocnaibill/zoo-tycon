@@ -129,18 +129,18 @@ script = ExtResource("2")
 [node name="Ponto2" type="Button" parent="Margem/Colunas/Meio/Mapa"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 340.0
+offset_left = 290.0
 offset_top = 320.0
-offset_right = 570.0
+offset_right = 520.0
 offset_bottom = 470.0
 script = ExtResource("2")
 
 [node name="Ponto3" type="Button" parent="Margem/Colunas/Meio/Mapa"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 600.0
+offset_left = 540.0
 offset_top = 50.0
-offset_right = 830.0
+offset_right = 770.0
 offset_bottom = 200.0
 script = ExtResource("2")
 
@@ -157,7 +157,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Caixa" type="VBoxContainer" parent="Margem/Colunas/Meio/Lateral/LateralMargem"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 5
 
 [node name="Objetivo" type="RichTextLabel" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa"]
 unique_name_in_owner = true
@@ -171,7 +171,7 @@ layout_mode = 2
 
 [node name="InfoPonto" type="RichTextLabel" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 90)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 bbcode_enabled = true
 text = "Info"
@@ -179,7 +179,7 @@ fit_content = true
 
 [node name="BotaoConstruir" type="Button" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 text = "Construir recinto"
 
@@ -220,19 +220,19 @@ size_flags_vertical = 3
 
 [node name="BotaoFicha" type="Button" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 text = "Consultar ficha do animal"
 
 [node name="BotaoEncerrar" type="Button" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "Encerrar rodada"
 
 [node name="MensagemPainel" type="PanelContainer" parent="Margem/Colunas"]
-custom_minimum_size = Vector2(0, 52)
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 
 [node name="Mensagem" type="Label" parent="Margem/Colunas/MensagemPainel"]

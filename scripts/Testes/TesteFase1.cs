@@ -16,6 +16,7 @@ public partial class TesteFase1 : Node
 		await Vitoria();
 		await Derrota();
 		await Bloqueio();
+		await Pausa();
 		GD.Print(_falhas == 0 ? "RESULTADO: OK" : $"RESULTADO: {_falhas} FALHA(S)");
 		GetTree().Quit(_falhas == 0 ? 0 : 1);
 	}
@@ -41,9 +42,10 @@ public partial class TesteFase1 : Node
 	static void ClicaModal(Node f, string botao = "BotaoA") => M(f).GetNode<BaseButton>("%" + botao).EmitSignal(BaseButton.SignalName.Pressed);
 	static void Cuidado(Node f, int i)
 	{
-		var lista = f.GetNode<VBoxContainer>("%ListaCuidados");
-		lista.GetChild(i).GetChild<Button>(2).EmitSignal(BaseButton.SignalName.Pressed);
+		BotaoCuidado(f, i).EmitSignal(BaseButton.SignalName.Pressed);
 	}
+	static Button BotaoCuidado(Node f, int i) =>
+		f.GetNode<VBoxContainer>("%ListaCuidados").GetChild(i).GetChild(0).GetChild<Button>(1);
 
 	async Task Vitoria()
 	{
@@ -66,7 +68,7 @@ public partial class TesteFase1 : Node
 
 		// Rodada 1: sobram 80 depois da operação; alimentação+água (55) cabem, os três (85) não.
 		Cuidado(f, 0); Cuidado(f, 1);
-		Confere(f.GetNode<VBoxContainer>("%ListaCuidados").GetChild(2).GetChild<Button>(2).Disabled, "manutenção bloqueada: não cabe no saldo");
+		Confere(BotaoCuidado(f, 2).Disabled, "manutenção bloqueada: não cabe no saldo");
 		var previsto = Texto(f, "Previsao");
 		GD.Print("  previsão: " + previsto);
 		Clica(f, "BotaoEncerrar");
@@ -110,7 +112,23 @@ public partial class TesteFase1 : Node
 		var f = await Nova();
 		ClicaModal(f);
 		Confere(f.GetNode<Button>("%BotaoFicha").Disabled, "ficha só depois do acolhimento");
-		Confere(f.GetNode<VBoxContainer>("%ListaCuidados").GetChild(0).GetChild<Button>(2).Disabled, "cuidados bloqueados sem animal");
+		Confere(BotaoCuidado(f, 0).Disabled, "cuidados bloqueados sem animal");
+		f.QueueFree();
+		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+	}
+
+	async Task Pausa()
+	{
+		GD.Print("== Cenário 4: Esc abre e fecha a pausa");
+		var f = await Nova();
+		ClicaModal(f);
+		Input.ParseInputEvent(new InputEventAction { Action = "ui_cancel", Pressed = true });
+		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		Confere(M(f).Visible && TituloModal(f) == "Pausa", "Esc abre a pausa");
+		Input.ParseInputEvent(new InputEventAction { Action = "ui_cancel", Pressed = false });
+		Input.ParseInputEvent(new InputEventAction { Action = "ui_cancel", Pressed = true });
+		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		Confere(!M(f).Visible, "Esc de novo fecha a pausa");
 		f.QueueFree();
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 	}

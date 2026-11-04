@@ -17,6 +17,10 @@ public partial class Modal : Control
 		_corpo = GetNode<RichTextLabel>("%Corpo");
 		_botaoA = GetNode<Button>("%BotaoA");
 		_botaoB = GetNode<Button>("%BotaoB");
+		var estilo = new StyleBoxFlat { BgColor = new Color(0.11f, 0.16f, 0.10f), BorderColor = new Color(0.85f, 0.80f, 0.55f) };
+		estilo.SetBorderWidthAll(2);
+		estilo.SetCornerRadiusAll(8);
+		GetNode<PanelContainer>("Centro/Painel").AddThemeStyleboxOverride("panel", estilo);
 		_botaoA.Pressed += () => Fechar(_acaoA);
 		_botaoB.Pressed += () => Fechar(_acaoB);
 	}

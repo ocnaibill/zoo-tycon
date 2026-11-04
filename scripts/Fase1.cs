@@ -84,24 +84,35 @@ public partial class Fase1 : Control
 		var lista = GetNode<VBoxContainer>("%ListaCuidados");
 		foreach (var c in Simulacao.Todos)
 		{
-			var linha = new HBoxContainer();
-			linha.AddThemeConstantOverride("separation", 8);
-			var rotulo = new Label { CustomMinimumSize = new Vector2(150, 0), VerticalAlignment = VerticalAlignment.Center };
+			var linha = new VBoxContainer();
+			linha.AddThemeConstantOverride("separation", 2);
+			var topo = new HBoxContainer();
+			var rotulo = new Label { SizeFlagsHorizontal = SizeFlags.ExpandFill, VerticalAlignment = VerticalAlignment.Center };
+			var botao = new Button { ToggleMode = true, CustomMinimumSize = new Vector2(150, 34) };
 			var barra = new ProgressBar
 			{
 				MinValue = 0, MaxValue = 100, ShowPercentage = false,
-				CustomMinimumSize = new Vector2(0, 22), SizeFlagsHorizontal = SizeFlags.ExpandFill,
-				SizeFlagsVertical = SizeFlags.ShrinkCenter,
+				CustomMinimumSize = new Vector2(0, 14), SizeFlagsHorizontal = SizeFlags.ExpandFill,
 			};
-			var botao = new Button { ToggleMode = true, CustomMinimumSize = new Vector2(130, 36) };
 			var cuidado = c;
 			botao.Pressed += () => AlternarCuidado(cuidado);
-			linha.AddChild(rotulo);
+			topo.AddChild(rotulo);
+			topo.AddChild(botao);
+			linha.AddChild(topo);
 			linha.AddChild(barra);
-			linha.AddChild(botao);
 			lista.AddChild(linha);
 			_linhas[c] = (rotulo, barra, botao);
 		}
+	}
+
+	static void PintarBarra(ProgressBar barra, bool alerta)
+	{
+		var fundo = new StyleBoxFlat { BgColor = new Color(0.08f, 0.10f, 0.07f) };
+		var cheio = new StyleBoxFlat { BgColor = alerta ? new Color(0.90f, 0.45f, 0.15f) : new Color(0.45f, 0.75f, 0.35f) };
+		fundo.SetCornerRadiusAll(3);
+		cheio.SetCornerRadiusAll(3);
+		barra.AddThemeStyleboxOverride("background", fundo);
+		barra.AddThemeStyleboxOverride("fill", cheio);
 	}
 
 	// ---------- Ações do jogador ----------
@@ -177,6 +188,7 @@ public partial class Fase1 : Control
 				? $"{Simulacao.Nome(c)} {atual}→{prevista}{(baixo ? " (baixo!)" : "")}"
 				: Simulacao.Nome(c);
 			barra.Value = atual;
+			PintarBarra(barra, baixo);
 			botao.SetPressedNoSignal(_sim.Planejado(c));
 			botao.Text = (_sim.Planejado(c) ? "Planejado " : "Fazer ") + $"${_sim.Custo(c)}";
 			botao.Disabled = !_sim.PodeAlternar(c);
@@ -184,6 +196,7 @@ public partial class Fase1 : Control
 		}
 
 		_barraBemEstar.Value = _sim.BemEstar;
+		PintarBarra(_barraBemEstar, _sim.AnimalAcolhido && _sim.BemEstarPrevisto < P.MetaBemEstar);
 		_bemEstarTexto.Text = _sim.AnimalAcolhido
 			? $"Bem-estar {_sim.BemEstar}→{_sim.BemEstarPrevisto} (meta {P.MetaBemEstar})"
 			: $"Bem-estar (meta {P.MetaBemEstar})";
