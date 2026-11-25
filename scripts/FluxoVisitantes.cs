@@ -1,42 +1,51 @@
+using System.Collections.Generic;
 using Godot;
 
 namespace RefugioDoCerrado;
 
 /// <summary>
-/// Visitantes decorativos (graybox): quadradinhos entram pela esquerda, andam pela trilha até o recinto,
-/// ficam um instante e saem. O ritmo acompanha o número de visitantes da rodada; não há pathfinding
-/// nem simulação individual (o GDD manda a visitação ser calculada).
+/// Visitantes decorativos: entram pela esquerda, caminham pela trilha até um recinto
+/// construído, observam por um instante e vão embora. O ritmo acompanha os visitantes
+/// calculados pela simulação; não há pathfinding nem simulação individual.
 /// </summary>
 public partial class FluxoVisitantes : Control
 {
-	const int MaximoEmCena = 14;
-	const float Velocidade = 140f; // pixels por segundo
-	const float VisitantesPorSegundoBase = 30f; // intervalo entre chegadas = 30 / visitantes
+	const int MaximoEmCena = 18;
+	const float Velocidade = 145f;
+	const float VisitantesPorSegundoBase = 30f;
 
 	readonly RandomNumberGenerator _rng = new();
-	Vector2 _destino;
-	float _yTrilha = 260f;
+	readonly List<Vector2> _destinos = new();
+	Texture2D _sprite;
+	float _yTrilha = 300f;
 	float _intervalo;
 	float _acumulado;
 
 	public int EmCena => GetChildCount();
 	public float IntervaloEntreChegadas => _intervalo;
 
-	public void Configurar(Vector2 destino, float yTrilha)
+	public override void _Ready()
 	{
-		_destino = destino;
+		MouseFilter = MouseFilterEnum.Ignore;
+		_sprite = GD.Load<Texture2D>("res://assets/art/visitante.svg");
+	}
+
+	public void Configurar(IReadOnlyList<Vector2> destinos, float yTrilha)
+	{
+		_destinos.Clear();
+		if (destinos != null) _destinos.AddRange(destinos);
 		_yTrilha = yTrilha;
 	}
 
 	/// <summary>Define o ritmo a partir da quantidade de visitantes da rodada (0 = ninguém entra).</summary>
 	public void DefinirVisitantes(int visitantes)
 	{
-		_intervalo = visitantes <= 0 ? 0f : VisitantesPorSegundoBase / visitantes;
+		_intervalo = visitantes <= 0 || _destinos.Count == 0 ? 0f : VisitantesPorSegundoBase / visitantes;
 	}
 
 	public override void _Process(double delta)
 	{
-		if (_intervalo <= 0f) return;
+		if (_intervalo <= 0f || _destinos.Count == 0) return;
 		_acumulado += (float)delta;
 		if (_acumulado < _intervalo) return;
 		_acumulado = 0f;
@@ -45,26 +54,32 @@ public partial class FluxoVisitantes : Control
 
 	void Criar()
 	{
-		var y = _yTrilha + _rng.RandfRange(-14f, 14f);
-		var xDestino = _destino.X + _rng.RandfRange(-70f, 70f);
-		var cor = Color.FromHsv(_rng.RandfRange(0.5f, 0.65f), 0.55f, 0.9f);
-		var visitante = new ColorRect
+		if (_destinos.Count == 0) return;
+		var destino = _destinos[_rng.RandiRange(0, _destinos.Count - 1)];
+		var y = _yTrilha + _rng.RandfRange(-22f, 22f);
+		var xDestino = destino.X + _rng.RandfRange(-58f, 58f);
+		var cor = Color.FromHsv(_rng.RandfRange(0.02f, 0.15f), 0.35f, 0.95f);
+
+		var visitante = new TextureRect
 		{
-			Color = cor,
-			Size = new Vector2(14, 14),
-			Position = new Vector2(-16f, y),
+			Texture = _sprite,
+			Size = new Vector2(26, 26),
+			Position = new Vector2(-30f, y),
 			MouseFilter = MouseFilterEnum.Ignore,
+			ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+			StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
+			Modulate = cor,
 		};
 		AddChild(visitante);
 
 		var chegada = new Vector2(xDestino, y);
-		var portao = new Vector2(xDestino, _destino.Y);
+		var portao = new Vector2(xDestino, destino.Y + 20f);
 		var t = visitante.CreateTween();
-		t.TweenProperty(visitante, "position", chegada, (chegada.X + 16f) / Velocidade);
+		t.TweenProperty(visitante, "position", chegada, (chegada.X + 30f) / Velocidade);
 		t.TweenProperty(visitante, "position", portao, Mathf.Abs(y - portao.Y) / Velocidade);
-		t.TweenInterval(_rng.RandfRange(1.0f, 2.5f));
+		t.TweenInterval(_rng.RandfRange(0.8f, 2.2f));
 		t.TweenProperty(visitante, "position", chegada, Mathf.Abs(y - portao.Y) / Velocidade);
-		t.TweenProperty(visitante, "position", new Vector2(-16f, y), (chegada.X + 16f) / Velocidade);
+		t.TweenProperty(visitante, "position", new Vector2(-30f, y), (chegada.X + 30f) / Velocidade);
 		t.TweenCallback(Callable.From(visitante.QueueFree));
 	}
 }

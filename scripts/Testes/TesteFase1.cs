@@ -27,9 +27,16 @@ public partial class TesteFase1 : Node
 		if (!cond) _falhas++;
 	}
 
-	async Task<Control> Nova()
+	async Task<FaseJogo> Nova()
 	{
-		var fase = GD.Load<PackedScene>("res://scenes/fase_1.tscn").Instantiate<Control>();
+		SessaoPartida.Instancia?.IniciarNovaPartida();
+		return await Abrir();
+	}
+
+	async Task<FaseJogo> Abrir()
+	{
+		var fase = GD.Load<PackedScene>("res://scenes/fase_1.tscn").Instantiate<FaseJogo>();
+		fase.NaoTrocarCena = true;
 		AddChild(fase);
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		return fase;
@@ -55,7 +62,8 @@ public partial class TesteFase1 : Node
 		ClicaModal(f);
 		Confere(!M(f).Visible, "botão Começar fecha a janela");
 		Confere(Texto(f, "Saldo") == "Saldo: $550", $"saldo inicial 550 ({Texto(f, "Saldo")})");
-		Confere(f.GetNode<Button>("%BotaoConstruir").Disabled, "construir bloqueado sem ponto selecionado");
+		Confere(!f.GetNode<Button>("%BotaoConstruir").Disabled, "ponto 1 livre já vem selecionado");
+		Confere(!f.GetNode<Button>("%BotaoFicha").Disabled, "ficha do animal disponível antes de construir");
 
 		Clica(f, "Ponto2");
 		Confere(f.GetNode<Button>("%BotaoConstruir").Disabled, "ponto 2 não permite construir na fase 1");
@@ -63,11 +71,11 @@ public partial class TesteFase1 : Node
 		Confere(!f.GetNode<Button>("%BotaoConstruir").Disabled, "ponto 1 livre permite construir");
 		Clica(f, "BotaoConstruir");
 		Confere(Texto(f, "Saldo") == "Saldo: $100", $"construir cobra 450 na hora ({Texto(f, "Saldo")})");
-		Confere(f.GetNode<FluxoVisitantes>("%Visitantes").EmCena == 0, "sem animal ninguém visita antes de construir");
+		Confere(f.GetNode<FluxoVisitantes>("%Visitantes").EmCena == 0, "sem visitantes antes de encerrar a rodada");
 		Confere(M(f).Visible && TituloModal(f).Contains("hóspede"), "animal acolhido por evento narrativo");
 		ClicaModal(f);
 
-		// Rodada 1: sobram 80 depois da operação; alimentação+água (55) cabem, os três (85) não.
+		// Rodada 1: sobram 100; operação 20 + alimentação/água 55 cabem, manutenção (30) não.
 		Cuidado(f, 0); Cuidado(f, 1);
 		Confere(BotaoCuidado(f, 2).Disabled, "manutenção bloqueada: não cabe no saldo");
 		var previsto = Texto(f, "Previsao");
@@ -107,17 +115,34 @@ public partial class TesteFase1 : Node
 		var corpo = M(f).GetNode<RichTextLabel>("%Corpo").Text;
 		Confere(corpo.Contains("Bem-estar") && corpo.Contains("abaixo"), "falha lista os motivos");
 		Confere(M(f).GetNode<Button>("%BotaoA").Text == "Reiniciar fase", "botão de reiniciar presente");
+		ClicaModal(f);
+		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		Confere(SessaoPartida.Instancia.Saldo == 550 && SessaoPartida.Instancia.FaseAtual == 1, "reinício restaura o snapshot da fase");
+		f.QueueFree();
+		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+		f = await Abrir();
+		ClicaModal(f);
+		Confere(Texto(f, "Saldo") == "Saldo: $550", "nova cena começa com o saldo do snapshot");
+		Confere(!f.GetNode<Button>("%BotaoConstruir").Disabled, "recinto volta a estar disponível");
 		f.QueueFree();
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 	}
 
 	async Task Bloqueio()
 	{
-		GD.Print("== Cenário 3: sem construir não há animal, ficha nem cuidados");
+		GD.Print("== Cenário 3: sem construir não há animal nem cuidados");
 		var f = await Nova();
 		ClicaModal(f);
-		Confere(f.GetNode<Button>("%BotaoFicha").Disabled, "ficha só depois do acolhimento");
+		Confere(!f.GetNode<Button>("%BotaoFicha").Disabled, "ficha educativa disponível mesmo antes do recinto");
 		Confere(BotaoCuidado(f, 0).Disabled, "cuidados bloqueados sem animal");
+		Clica(f, "BotaoFicha");
+		Confere(M(f).Visible && TituloModal(f).Contains("Ficha"), "ficha do animal abre");
+		var ficha = M(f).GetNode<RichTextLabel>("%Corpo").Text;
+		Confere(ficha.Contains("Chrysocyon") && ficha.Contains("Fontes"), "ficha traz nome científico e fontes");
+		ClicaModal(f);
+		Clica(f, "Ponto2");
+		Confere(f.GetNode<Button>("%BotaoConstruir").Disabled, "ponto bloqueado não constrói");
 		f.QueueFree();
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 	}

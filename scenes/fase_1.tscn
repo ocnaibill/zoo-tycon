@@ -1,11 +1,12 @@
-[gd_scene format=3]
+[gd_scene load_steps=6 format=3]
 
-[ext_resource type="Script" path="res://scripts/Fase1.cs" id="1"]
+[ext_resource type="Script" path="res://scripts/FaseJogo.cs" id="1"]
 [ext_resource type="Script" path="res://scripts/PontoRecinto.cs" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/modal.tscn" id="3"]
 [ext_resource type="Script" path="res://scripts/FluxoVisitantes.cs" id="4"]
+[ext_resource type="Texture2D" path="res://assets/art/fundo_cerrado.svg" id="5"]
 
-[node name="Fase1" type="Control"]
+[node name="FaseJogo" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,14 +15,27 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
 
-[node name="Fundo" type="ColorRect" parent="."]
+[node name="Fundo" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.14, 0.2, 0.13, 1)
+mouse_filter = 2
+texture = ExtResource("5")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Veu" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.06, 0.09, 0.055, 0.45)
 
 [node name="Margem" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -44,54 +58,73 @@ layout_mode = 2
 
 [node name="TopoMargem" type="MarginContainer" parent="Margem/Colunas/Topo"]
 layout_mode = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 6
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 8
 
 [node name="TopoCaixa" type="VBoxContainer" parent="Margem/Colunas/Topo/TopoMargem"]
 layout_mode = 2
+theme_override_constants/separation = 2
 
 [node name="Linha1" type="HBoxContainer" parent="Margem/Colunas/Topo/TopoMargem/TopoCaixa"]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 18
 
 [node name="TituloFase" type="Label" parent="Margem/Colunas/Topo/TopoMargem/TopoCaixa/Linha1"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 23
 text = "Fase 1"
 
 [node name="Rodada" type="Label" parent="Margem/Colunas/Topo/TopoMargem/TopoCaixa/Linha1"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 18
 text = "Rodada 1/3"
 
 [node name="Saldo" type="Label" parent="Margem/Colunas/Topo/TopoMargem/TopoCaixa/Linha1"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 18
 text = "Saldo: $0"
+
+[node name="BotaoMenu" type="Button" parent="Margem/Colunas/Topo/TopoMargem/TopoCaixa/Linha1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(78, 32)
+layout_mode = 2
+text = "Menu"
 
 [node name="Previsao" type="Label" parent="Margem/Colunas/Topo/TopoMargem/TopoCaixa"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 13
 text = "Previsão"
+autowrap_mode = 3
+
+[node name="Objetivo" type="RichTextLabel" parent="Margem/Colunas/Topo/TopoMargem/TopoCaixa"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 13
+theme_override_font_sizes/bold_font_size = 13
+bbcode_enabled = true
+text = "Objetivo"
+fit_content = true
+autowrap_mode = 3
 
 [node name="Meio" type="HBoxContainer" parent="Margem/Colunas"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 10
+theme_override_constants/separation = 8
 
 [node name="Mapa" type="Control" parent="Margem/Colunas/Meio"]
+unique_name_in_owner = true
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MapaFundo" type="ColorRect" parent="Margem/Colunas/Meio/Mapa"]
+[node name="MapaFundo" type="TextureRect" parent="Margem/Colunas/Meio/Mapa"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,15 +132,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.72, 0.66, 0.4, 1)
-
-[node name="Trilha" type="ColorRect" parent="Margem/Colunas/Meio/Mapa"]
-layout_mode = 0
-offset_top = 235.0
-offset_right = 900.0
-offset_bottom = 285.0
-mouse_filter = 2
-color = Color(0.62, 0.52, 0.34, 1)
+texture = ExtResource("5")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="Visitantes" type="Control" parent="Margem/Colunas/Meio/Mapa"]
 unique_name_in_owner = true
@@ -120,41 +147,65 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("4")
 
-[node name="RotuloMapa" type="Label" parent="Margem/Colunas/Meio/Mapa"]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 505.0
-offset_right = 600.0
-offset_bottom = 540.0
-mouse_filter = 2
-text = "Mapa do refúgio (graybox, arte provisória)"
-
 [node name="Ponto1" type="Button" parent="Margem/Colunas/Meio/Mapa"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 50.0
-offset_top = 50.0
-offset_right = 280.0
-offset_bottom = 200.0
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.03
+anchor_top = 0.04
+anchor_right = 0.29
+anchor_bottom = 0.34
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("2")
 
 [node name="Ponto2" type="Button" parent="Margem/Colunas/Meio/Mapa"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 290.0
-offset_top = 320.0
-offset_right = 520.0
-offset_bottom = 470.0
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.35
+anchor_top = 0.58
+anchor_right = 0.61
+anchor_bottom = 0.88
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("2")
 
 [node name="Ponto3" type="Button" parent="Margem/Colunas/Meio/Mapa"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 540.0
-offset_top = 50.0
-offset_right = 770.0
-offset_bottom = 200.0
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.66
+anchor_top = 0.06
+anchor_right = 0.92
+anchor_bottom = 0.36
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("2")
+
+[node name="PontosArvore" type="Control" parent="Margem/Colunas/Meio/Mapa"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="RotuloMapa" type="Label" parent="Margem/Colunas/Meio/Mapa"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -28.0
+offset_right = 520.0
+offset_bottom = -6.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 12
+text = "Mapa do refúgio — arte original do projeto"
 
 [node name="Lateral" type="PanelContainer" parent="Margem/Colunas/Meio"]
 custom_minimum_size = Vector2(410, 0)
@@ -171,42 +222,66 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Objetivo" type="RichTextLabel" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa"]
-unique_name_in_owner = true
-layout_mode = 2
-bbcode_enabled = true
-text = "Objetivo"
-fit_content = true
-
-[node name="Sep1" type="HSeparator" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa"]
-layout_mode = 2
-
 [node name="InfoPonto" type="RichTextLabel" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(386, 78)
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/bold_font_size = 14
 bbcode_enabled = true
 text = "Info"
 fit_content = true
+autowrap_mode = 3
 
 [node name="BotaoConstruir" type="Button" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 36)
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 text = "Construir recinto"
 
-[node name="Sep2" type="HSeparator" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa"]
+[node name="AcoesArvore" type="VBoxContainer" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="TituloArvore" type="Label" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa/AcoesArvore"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Plantar uma árvore nativa"
+
+[node name="BotoesArvore" type="HBoxContainer" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa/AcoesArvore"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PlantarIpe" type="Button" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa/AcoesArvore/BotoesArvore"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ipê ($120)"
+
+[node name="PlantarPequi" type="Button" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa/AcoesArvore/BotoesArvore"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pequi ($120)"
+
+[node name="SeparadorCuidados" type="HSeparator" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa"]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="TituloCuidados" type="Label" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "Cuidados desta rodada (hoje → fim da rodada)"
+theme_override_font_sizes/font_size = 16
+text = "Cuidados desta rodada"
 
 [node name="ListaCuidados" type="VBoxContainer" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 6
+theme_override_constants/separation = 2
 
 [node name="BemEstarLinha" type="HBoxContainer" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa"]
 layout_mode = 2
@@ -214,13 +289,15 @@ theme_override_constants/separation = 8
 
 [node name="BemEstarTexto" type="Label" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa/BemEstarLinha"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
+theme_override_font_sizes/font_size = 13
 text = "Bem-estar"
+autowrap_mode = 3
 
 [node name="BarraBemEstar" type="ProgressBar" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa/BemEstarLinha"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 22)
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -234,24 +311,24 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
-text = "Consultar ficha do animal"
+text = "Ficha do animal"
 
 [node name="BotaoEncerrar" type="Button" parent="Margem/Colunas/Meio/Lateral/LateralMargem/Caixa"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 21
 text = "Encerrar rodada"
 
 [node name="MensagemPainel" type="PanelContainer" parent="Margem/Colunas"]
-custom_minimum_size = Vector2(0, 44)
+custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 
 [node name="Mensagem" type="Label" parent="Margem/Colunas/MensagemPainel"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "Selecione o Ponto 1 no mapa para começar."
+theme_override_font_sizes/font_size = 16
+text = "Selecione um ponto do mapa para começar."
 autowrap_mode = 3
 vertical_alignment = 1
 

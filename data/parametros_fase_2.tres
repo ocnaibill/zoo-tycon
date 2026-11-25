@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="ParametrosFase" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/Nucleo/ParametrosFase.cs" id="1"]
+[ext_resource type="Resource" path="res://data/animais/tamandua_bandeira.tres" id="2"]
+[ext_resource type="Resource" path="res://data/arvores/ipe_amarelo.tres" id="3"]
+[ext_resource type="Resource" path="res://data/arvores/pequi.tres" id="4"]
+
+[resource]
+script = ExtResource("1")
+Numero = 2
+Nome = "Parceria com o tamanduá"
+Animal = ExtResource("2")
+Rodadas = 3
+NumeroRecintos = 2
+AnimaisMinimos = 2
+ArvoresMinimas = 0
+PermiteArvores = true
+ApoioTransicao = 400
+NecessidadeMinimaTransicao = 60
+Arvore1 = ExtResource("3")
+Arvore2 = ExtResource("4")
+SaldoInicial = 0
+CustoRecinto = 450
+OperacaoPorRecinto = 20
+PrecoIngresso = 2
+VisitantesBase = 20
+VisitantesPorPontoBemEstar = 0.4
+CustoAlimentacao = 40
+CustoAgua = 15
+CustoManutencao = 30
+NecessidadeInicial = 70
+EfeitoCuidado = 50
+QuedaAlimentacao = 25
+QuedaAgua = 25
+QuedaManutencao = 15
+MetaBemEstar = 70
+NecessidadeMinima = 40
+ReservaMinima = 80

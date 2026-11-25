@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EspecieAnimal" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/Nucleo/EspecieAnimal.cs" id="1"]
+
+[resource]
+script = ExtResource("1")
+Nome = "Lobo-guará"
+NomeCientifico = "Chrysocyon brachyurus (Illiger, 1815)"
+Ficha = "[b]Identificação[/b]\nO lobo-guará é o maior canídeo da América do Sul. Tem pernas muito longas, pelagem avermelhada e uma crina escura sobre os ombros, adaptações que ajudam a caminhar em campos altos e a enxergar acima da vegetação.\n\n[b]Ambiente[/b]\nVive em áreas abertas do Cerrado, campos e matas de galeria, inclusive perto de cidades. É um animal solitário e costuma demarcar território com urina e fezes.\n\n[b]Alimentação[/b]\nÉ onívoro: come pequenos vertebrados, insetos e muitos frutos, com destaque para a lobeira. Ao comer frutos e defecar longe da planta, ajuda a dispersar sementes.\n\n[b]Conservação[/b]\nEstá classificado como [b]Vulnerável (VU)[/b] no Brasil e [b]Quase Ameaçado (NT)[/b] globalmente. A perda de habitat, os atropelamentos e o conflito com criadores de aves são as principais ameaças.\n\n[b]Curiosidade[/b]\nApesar do nome, não é um lobo: é a única espécie viva do gênero Chrysocyon e tem parentesco mais próximo de outros canídeos sul-americanos."
+Fontes = "ICMBio — PAN Lobo-guará: https://www.gov.br/icmbio/pt-br/assuntos/biodiversidade/pan/pan-lobo-guara\nZoológico de Brasília — Lobo-guará: https://www.zoo.df.gov.br/lobo-guara\nPró-Carnívoros — Lobo-guará: https://procarnivoros.org.br/animais/lobo-guara/"
+SpritePath = "res://assets/art/lobo_guara.png"
+Cor = Color(0.84, 0.43, 0.18, 1)

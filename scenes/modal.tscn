@@ -50,9 +50,15 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Título"
 
-[node name="Corpo" type="RichTextLabel" parent="Centro/Painel/Margem/Caixa"]
+[node name="Rolagem" type="ScrollContainer" parent="Centro/Painel/Margem/Caixa"]
+custom_minimum_size = Vector2(0, 330)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Corpo" type="RichTextLabel" parent="Centro/Painel/Margem/Caixa/Rolagem"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 18
 theme_override_font_sizes/bold_font_size = 18
 bbcode_enabled = true

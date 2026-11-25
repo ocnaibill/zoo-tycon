@@ -1,12 +1,24 @@
-[gd_resource type="Resource" script_class="ParametrosFase" format=3]
+[gd_resource type="Resource" script_class="ParametrosFase" load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/Nucleo/ParametrosFase.cs" id="1"]
+[ext_resource type="Resource" path="res://data/animais/lobo_guara.tres" id="2"]
+[ext_resource type="Resource" path="res://data/arvores/ipe_amarelo.tres" id="3"]
+[ext_resource type="Resource" path="res://data/arvores/pequi.tres" id="4"]
 
 [resource]
 script = ExtResource("1")
+Numero = 1
 Nome = "Primeiro acolhimento"
-Animal = "Lobo-guará"
+Animal = ExtResource("2")
 Rodadas = 3
+NumeroRecintos = 1
+AnimaisMinimos = 1
+ArvoresMinimas = 0
+PermiteArvores = false
+ApoioTransicao = 0
+NecessidadeMinimaTransicao = 60
+Arvore1 = ExtResource("3")
+Arvore2 = ExtResource("4")
 SaldoInicial = 550
 CustoRecinto = 450
 OperacaoPorRecinto = 20

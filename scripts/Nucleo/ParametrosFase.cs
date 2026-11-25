@@ -10,9 +10,20 @@ namespace RefugioDoCerrado.Nucleo;
 public partial class ParametrosFase : Resource
 {
 	[ExportGroup("Fase")]
+	[Export] public int Numero { get; set; } = 1;
 	[Export] public string Nome { get; set; } = "Primeiro acolhimento";
-	[Export] public string Animal { get; set; } = "Lobo-guará";
+	[Export] public EspecieAnimal Animal { get; set; }
 	[Export] public int Rodadas { get; set; } = 3;
+	[Export] public int NumeroRecintos { get; set; } = 1;
+	[Export] public int AnimaisMinimos { get; set; } = 1;
+	[Export] public int ArvoresMinimas { get; set; } = 0;
+	[Export] public bool PermiteArvores { get; set; } = false;
+	[Export] public int ApoioTransicao { get; set; } = 0;
+	[Export] public int NecessidadeMinimaTransicao { get; set; } = 60;
+
+	[ExportGroup("Arborização")]
+	[Export] public EspecieArvore Arvore1 { get; set; }
+	[Export] public EspecieArvore Arvore2 { get; set; }
 
 	[ExportGroup("Economia")]
 	[Export] public int SaldoInicial { get; set; } = 550;
@@ -22,7 +33,7 @@ public partial class ParametrosFase : Resource
 	[Export] public int VisitantesBase { get; set; } = 20;
 	[Export] public float VisitantesPorPontoBemEstar { get; set; } = 0.4f;
 
-	[ExportGroup("Cuidados (custo por rodada)")]
+	[ExportGroup("Cuidados (custo por animal, por rodada)")]
 	[Export] public int CustoAlimentacao { get; set; } = 40;
 	[Export] public int CustoAgua { get; set; } = 15;
 	[Export] public int CustoManutencao { get; set; } = 30;
@@ -38,4 +49,7 @@ public partial class ParametrosFase : Resource
 	[Export] public int MetaBemEstar { get; set; } = 70;
 	[Export] public int NecessidadeMinima { get; set; } = 40;
 	[Export] public int ReservaMinima { get; set; } = 0;
+
+	public string NomeAnimal => Animal?.Nome ?? "animal";
+	public string NomeAnimalMinusculo => NomeAnimal.ToLower();
 }

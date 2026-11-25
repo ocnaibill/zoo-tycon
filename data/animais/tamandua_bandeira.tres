@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EspecieAnimal" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/Nucleo/EspecieAnimal.cs" id="1"]
+
+[resource]
+script = ExtResource("1")
+Nome = "Tamanduá-bandeira"
+NomeCientifico = "Myrmecophaga tridactyla Linnaeus, 1758"
+Ficha = "[b]Identificação[/b]\nÉ o maior tamanduá do mundo, com focinho alongado, cauda grande e uma faixa preta característica no tórax. Não tem dentes: usa a língua longa e pegajosa para capturar formigas e cupins.\n\n[b]Ambiente[/b]\nOcorre em Cerrado, Pantanal, campos e florestas da América do Sul. Precisa de grandes áreas com formigueiros e cupinzeiros, e costuma descansar em áreas de vegetação densa.\n\n[b]Alimentação[/b]\nÉ especializado em formigas e cupins. Com as garras dianteiras fortes, abre os ninhos e introduz a língua várias vezes por segundo. Também bebe água regularmente.\n\n[b]Conservação[/b]\nEstá classificado como [b]Vulnerável (VU)[/b] no Brasil e globalmente. Os incêndios, os atropelamentos, a perda de habitat e a caça reduzem suas populações.\n\n[b]Curiosidade[/b]\nA fêmea carrega o filhote nas costas por vários meses. Quando se sente ameaçado, o tamanduá se ergue sobre as patas traseiras e usa as garras para se defender."
+Fontes = "ICMBio — Ficha de Myrmecophaga tridactyla: https://www.gov.br/icmbio/pt-br/assuntos/centros-de-pesquisa/primatas-brasileiros/arquivos/fichas_xenathra/fichas_2019_2021/cingulata/dasypodidae/pilosa/myrmecophagidae/ficha-myrmecophaga-tridactyla.pdf\nZoológico de Brasília — Tamanduá-bandeira: https://www.zoo.df.gov.br/tamandua-bandeira-myrmecophaga-tridactyla"
+SpritePath = "res://assets/art/tamandua_bandeira.png"
+Cor = Color(0.69, 0.59, 0.42, 1)
