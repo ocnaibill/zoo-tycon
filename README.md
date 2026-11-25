@@ -14,6 +14,12 @@ Equipe: Bianco da Costa Oliveira, Jhon Wilker e Gabriel Domingos.
 
 Os documentos de planejamento (One-Page Concept, GDD do Marco 1 e Plano de Projeto) estão em [`docs/`](docs/).
 
+## Estado atual (24/11/2026)
+
+O jogo tem o **loop completo das três fases**: acolher o lobo-guará, o tamanduá-bandeira e o tatu-canastra, construir até três recintos, plantar ipê-amarelo e pequi, cuidar dos animais e fechar a partida com resumo final. Pixel art para animais e árvores, interface em SVG, o tema musical **Noite Estrelada**, fonte, tema de interface, fichas com fontes e testes automáticos já estão integrados. O que falta é a validação com jogadores externos e o teste das builds em outras máquinas — veja [`docs/roteiro-teste-externo.md`](docs/roteiro-teste-externo.md).
+
+O tema musical pode ser ouvido fora do jogo em [`docs/audicao-musicas.html`](docs/audicao-musicas.html). Ele toca em loop no menu e nas fases; o volume fica em **Áudio → Música** e é salvo.
+
 ---
 
 ## Passo a passo para começar
@@ -54,35 +60,67 @@ Se os arquivos de imagem aparecerem como textos pequenos de poucas linhas (ponte
 2. Na primeira abertura o Godot importa os recursos e compila o C#. Isso pode levar alguns minutos.
 3. Se aparecer erro de compilação ou o plugin não carregar, vá em **Build** (martelo no topo do editor) e compile de novo, ou rode `dotnet build` na pasta do projeto.
 
-Para jogar, aperte **F5**. A cena principal é `scenes/menu_inicial.tscn` (Jogar abre a fase 1).
+Se o Build falhar com `Your Windows doesn't fully support CET`, abra o editor pelo `abrir_godot.bat` (na raiz do projeto). Ele coloca o SDK 8 local (`../dotnet8`) à frente no `PATH`, e o Godot passa a compilar com o .NET 8 em vez do SDK 10 instalado.
+
+Para jogar, aperte **F5**. A cena principal é `scenes/menu_inicial.tscn` (Jogar inicia a partida na fase 1).
 
 ### 5. Primeiro teste
 
-Aperte F5, clique em **Jogar** e leia as instruções. Se a fase 1 abrir, o ambiente está funcionando.
+Aperte F5, clique em **Jogar** e leia as instruções. Se a fase 1 abrir, o ambiente está funcionando. O loop completo termina com o resumo das três fases.
 
 Testes automáticos (sem abrir janela), a partir da pasta do projeto:
 
 ```bash
 dotnet build
-godot-mono --headless --path . res://scenes/testes/teste_nucleo.tscn   # prova de balanceamento (todas as estratégias)
-godot-mono --headless --path . res://scenes/testes/teste_fase_1.tscn   # joga a fase 1 pela interface
+godot-mono --headless --path . res://scenes/testes/teste_nucleo.tscn          # balanceamento das três fases
+godot-mono --headless --path . res://scenes/testes/teste_fase_1.tscn         # fase 1 pela interface
+godot-mono --headless --path . res://scenes/testes/teste_jogo_completo.tscn  # partida completa 1 → 2 → 3
 ```
 
-Os dois terminam com `RESULTADO: OK`. Os valores da economia ficam em [`data/parametros_fase_1.tres`](data/parametros_fase_1.tres) (editável no Inspetor do Godot) e as regras em `scripts/Nucleo/`.
+Os três terminam com `RESULTADO: OK`. Os valores da economia ficam em [`data/parametros_fase_1.tres`](data/parametros_fase_1.tres), [`data/parametros_fase_2.tres`](data/parametros_fase_2.tres) e [`data/parametros_fase_3.tres`](data/parametros_fase_3.tres) (editáveis no Inspetor do Godot); as regras ficam em `scripts/Nucleo/`.
+
+Para gerar capturas de tela (precisa de janela/renderização):
+
+```bash
+godot-mono --path . --rendering-driver opengl3 --resolution 1280x720 res://scenes/testes/teste_captura.tscn
+```
+
+As imagens vão para `user://capturas`, que no Windows fica em `%APPDATA%\Godot\app_userdata\Refúgio do Cerrado\capturas`.
+
+Para regerar os recursos originais (PowerShell, Windows):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/gerar_audio.ps1      # oito efeitos
+powershell -ExecutionPolicy Bypass -File tools/gerar_musicas.ps1    # tema Noite Estrelada
+powershell -ExecutionPolicy Bypass -File tools/preparar_sprites.ps1 # PNGs com transparência
+```
+
+> **.NET 10 nesta máquina:** se `dotnet build` falhar com “Your Windows doesn't fully support CET”, use o SDK 8 local: `../dotnet8/dotnet.exe build`. O mesmo vale para os comandos do Godot, que precisam encontrar esse SDK no `PATH`.
 
 ---
 
 ## Estrutura do projeto
 
 ```
-scenes/    cenas (.tscn): menu, fases, recintos, interface
-scripts/   código C# (namespace RefugioDoCerrado)
-data/      Resources (.tres) com parâmetros e tabelas de balanceamento
-assets/    arte, áudio e fontes (versionados com Git LFS)
-addons/    plugins do Godot (godot_mcp)
-docs/      documentos de planejamento (PDF)
-CREDITS.md registro de autoria, origem e licença de todo recurso externo
+scenes/             cenas (.tscn): menu_inicial, fase_1 (jogo das três fases), modal
+scenes/testes/      cenas que rodam os testes automáticos e as capturas
+scripts/            controladores de cena e apresentação (FaseJogo, MenuInicial, Modal,
+                    PontoRecinto, PontoArvore, FluxoVisitantes, TemaUI, AudioManager, SessaoPartida)
+scripts/Nucleo/     regras do jogo, sem dependência de cena (Simulacao, ParametrosFase,
+                    Recinto, EspecieAnimal, EspecieArvore)
+scripts/Testes/     testes automáticos
+data/               Resources (.tres): parâmetros das fases, animais e árvores
+assets/art/         pixel art PNG (animais, árvores, muda) e SVGs de interface/cenário
+assets/audio/       oito efeitos e o tema Noite Estrelada sintetizados em WAV
+assets/fonts/       Atkinson Hyperlegible (SIL OFL) e o texto da licença
+tools/              geradores de áudio/música, preparação dos sprites e fontes PNG
+                    (PowerShell; os originais ficam em tools/sprites_fonte/)
+addons/             plugins do Godot (godot_mcp, opcional)
+docs/               documentação técnica e de planejamento
+CREDITS.md          autoria, origem e licença de todo recurso externo
 ```
+
+O arquivo `scenes/fase_1.tscn` mantém o nome histórico, mas é a cena única do jogo e carrega o controlador `FaseJogo`, que serve às três fases.
 
 ### Convenções de C# no Godot
 
@@ -156,6 +194,6 @@ godot-cli setup-mcp <agente> . --url http://localhost:8080 --no-pin
 
 ## Escopo (resumo)
 
-1 mapa, 3 fases, 3 animais, até 3 recintos em pontos predefinidos, 2 tipos de árvore, economia por rodadas, cuidados, fichas educativas, menu e resumo final. Fora do escopo: 3D, multiplayer, construção livre, mobile e web. Detalhes em [`docs/`](docs/).
+1 mapa, 3 fases, 3 animais (lobo-guará, tamanduá-bandeira e tatu-canastra), até 3 recintos em pontos predefinidos, 2 tipos de árvore (ipê-amarelo e pequi), economia por rodadas, cuidados, fichas educativas com fontes, menu, progressão e resumo final. **Esse escopo está implementado no loop jogável atual.** Fora do escopo: 3D, multiplayer, construção livre, mobile e web. Detalhes em [`docs/`](docs/).
 
 > **Nota:** os documentos do Marco 1 citam GDScript. A decisão atual do grupo é usar **C#**, e os documentos serão atualizados.
