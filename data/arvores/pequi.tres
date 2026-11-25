@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EspecieArvore" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/Nucleo/EspecieArvore.cs" id="1"]
+
+[resource]
+script = ExtResource("1")
+Nome = "Pequi"
+NomeCientifico = "Caryocar brasiliense Cambess."
+Ficha = "[b]Identificação[/b]\nÁrvore símbolo do Cerrado, com copa ampla e tronco revestido por casca grossa. O fruto é verde-amarelado, tem espinhos por dentro e envolve de um a quatro caroços com polpa amarela e aromática.\n\n[b]Ambiente[/b]\nÉ típica do Cerrado sentido restrito e de áreas de transição, em solos ácidos e pobres. Pode ultrapassar 10 metros de altura quando o solo e a luz favorecem.\n\n[b]Importância[/b]\nO pequi é alimento de animais como macacos, aves e insetos, e sustenta uma cadeia econômica ligada à coleta e à culinária regional. A polpa é rica em óleos e vitaminas.\n\n[b]Conservação[/b]\nA espécie não é considerada globalmente ameaçada, mas a coleta predatória, o desmatamento e a baixa regeneração em pastagens preocupam pesquisadores. O plantio e o manejo cuidadoso ajudam a manter populações.\n\n[b]Curiosidade[/b]\nO caroço espinhoso exige cuidado ao ser roído: a polpa é consumida, mas os espinhos podem machucar a boca. O pequi é patrimônio cultural e gastronômico de várias regiões do Cerrado."
+Fontes = "Embrapa — Aspectos agronômicos e de qualidade do pequi: https://www.infoteca.cnptia.embrapa.br/bitstream/doc/426706/1/Dc113.pdf\nEmbrapa — Produção de frutos de pequi em área de pastagem e Cerrado: https://www.embrapa.br/busca-de-publicacoes/-/publicacao/1176234/producao-de-frutos-de-pequi-caryocar-brasiliense-camb-caryocaraceae-em-area-de-pastagem-e-cerrado-em-japonvar-norte-de-minas-gerais"
+SpritePath = "res://assets/art/pequi.png"
+Custo = 120
+BonusBemEstar = 2
+BonusVisitantes = 3

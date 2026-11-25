@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EspecieArvore" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/Nucleo/EspecieArvore.cs" id="1"]
+
+[resource]
+script = ExtResource("1")
+Nome = "Ipê-amarelo-do-cerrado"
+NomeCientifico = "Handroanthus ochraceus (Cham.) Mattos"
+Ficha = "[b]Identificação[/b]\nÁrvore de pequeno a médio porte, com tronco tortuoso e casca grossa. No fim da estação seca, perde as folhas e cobre a copa de flores amarelas, um dos espetáculos mais conhecidos do Cerrado.\n\n[b]Ambiente[/b]\nOcorre em áreas de Cerrado, cerradão e bordas de matas, em solos bem drenados. É uma espécie heliófila, ou seja, precisa de bastante luz para se desenvolver.\n\n[b]Importância[/b]\nProduz néctar e pólen para abelhas e outros polinizadores, além de sombra e abrigo para a fauna. A madeira é resistente e a árvore é muito usada no paisagismo urbano.\n\n[b]Conservação[/b]\nA espécie não está entre as mais ameaçadas, mas a expansão agrícola e a retirada de madeira reduzem populações locais. Plantar árvores nativas ajuda a restaurar corredores ecológicos.\n\n[b]Curiosidade[/b]\nO nome popular \"ipê\" vem do tupi e está associado à casca resistente. A floração sincronizada de vários indivíduos deixa a paisagem inteira amarela."
+Fontes = "Embrapa — Particularidades biológicas de espécies de ipês: https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1139933/1/Doc-375.pdf\nEmbrapa — Espécies Arbóreas Brasileiras, Ipê-amarelo: https://www.alice.cnptia.embrapa.br/alice/bitstream/doc/1140083/1/Especies-Arboreas-Brasileiras-vol-1-Ipe-Amarelo.pdf"
+SpritePath = "res://assets/art/ipe_amarelo.png"
+Custo = 120
+BonusBemEstar = 2
+BonusVisitantes = 3
