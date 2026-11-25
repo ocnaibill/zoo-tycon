@@ -18,3 +18,8 @@ export/
 
 # Godot-MCP local server binary (downloaded per machine)
 .ai-game-dev/
+
+# Local-only AI helpers and asset generators (not part of the game)
+/.claude/
+/abrir_godot.bat
+/tools/
