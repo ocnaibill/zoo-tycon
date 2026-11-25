@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="grama" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#87a45a"/>
+      <stop offset="0.55" stop-color="#6f8f4b"/>
+      <stop offset="1" stop-color="#5d7d40"/>
+    </linearGradient>
+    <radialGradient id="agua" cx="0.4" cy="0.35" r="0.75">
+      <stop offset="0" stop-color="#7fb9a8"/>
+      <stop offset="1" stop-color="#3f7d75"/>
+    </radialGradient>
+    <pattern id="capim" width="46" height="46" patternUnits="userSpaceOnUse">
+      <path d="M8 40 C10 30 8 24 14 16 M18 42 C16 32 22 26 20 18 M32 40 C34 32 30 26 36 20" stroke="#58763b" stroke-width="3" fill="none" opacity="0.45" stroke-linecap="round"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#grama)"/>
+  <rect width="1600" height="900" fill="url(#capim)"/>
+
+  <!-- manchas de vegetação -->
+  <ellipse cx="310" cy="160" rx="280" ry="130" fill="#7c9b50" opacity="0.7"/>
+  <ellipse cx="1330" cy="710" rx="330" ry="160" fill="#7c9b50" opacity="0.55"/>
+  <ellipse cx="1190" cy="170" rx="230" ry="110" fill="#94ad63" opacity="0.45"/>
+  <ellipse cx="520" cy="740" rx="300" ry="140" fill="#547438" opacity="0.55"/>
+
+  <!-- lagoa -->
+  <path d="M100 700 C120 606 244 570 342 606 C420 634 456 700 420 770 C372 846 214 850 140 798 C98 770 88 736 100 700 Z" fill="#b9a66c" opacity="0.8"/>
+  <path d="M122 704 C142 626 250 598 328 628 C390 652 418 704 390 758 C350 818 220 822 158 782 C124 760 116 730 122 704 Z" fill="url(#agua)"/>
+  <ellipse cx="242" cy="700" rx="44" ry="16" fill="#cfe7da" opacity="0.55"/>
+  <g fill="#5a8f4a" opacity="0.9">
+    <ellipse cx="320" cy="770" rx="24" ry="10" transform="rotate(-18 320 770)"/>
+    <ellipse cx="164" cy="642" rx="20" ry="9" transform="rotate(24 164 642)"/>
+    <ellipse cx="342" cy="680" rx="18" ry="8" transform="rotate(10 342 680)"/>
+  </g>
+
+  <!-- trilha de visitação -->
+  <path d="M-30 556 C160 520 280 548 430 566 C610 588 740 574 900 548 C1080 518 1220 512 1630 556"
+        stroke="#c0a875" stroke-width="74" fill="none" stroke-linecap="round"/>
+  <path d="M-30 556 C160 520 280 548 430 566 C610 588 740 574 900 548 C1080 518 1220 512 1630 556"
+        stroke="#d3bf91" stroke-width="48" fill="none" stroke-linecap="round" opacity="0.65"/>
+  <g fill="#b39a68" opacity="0.8">
+    <circle cx="220" cy="534" r="5"/><circle cx="258" cy="550" r="4"/><circle cx="470" cy="574" r="5"/>
+    <circle cx="520" cy="570" r="4"/><circle cx="760" cy="562" r="5"/><circle cx="1050" cy="522" r="5"/>
+    <circle cx="1120" cy="518" r="4"/><circle cx="1360" cy="538" r="5"/><circle cx="1420" cy="548" r="4"/>
+  </g>
+
+  <!-- cercas -->
+  <g stroke="#7d5d35" stroke-width="10" stroke-linecap="round">
+    <path d="M28 40 L28 470 M28 470 L720 470 M720 40 L720 470"/>
+    <path d="M860 40 L860 470 M860 470 L1570 470 M1570 40 L1570 470"/>
+  </g>
+  <g stroke="#a17a48" stroke-width="7" stroke-linecap="round">
+    <path d="M28 120 L720 120 M28 230 L720 230 M28 340 L720 340"/>
+    <path d="M860 120 L1570 120 M860 230 L1570 230 M860 340 L1570 340"/>
+  </g>
+  <g fill="#6e4f2c">
+    <rect x="16" y="30" width="24" height="80" rx="6"/><rect x="708" y="30" width="24" height="80" rx="6"/>
+    <rect x="848" y="30" width="24" height="80" rx="6"/><rect x="1558" y="30" width="24" height="80" rx="6"/>
+  </g>
+
+  <!-- arbustos e pedras -->
+  <g>
+    <ellipse cx="148" cy="404" rx="40" ry="24" fill="#4c7038"/>
+    <circle cx="132" cy="392" r="24" fill="#5d8442"/><circle cx="164" cy="396" r="20" fill="#668f49"/>
+    <ellipse cx="806" cy="376" rx="52" ry="28" fill="#4c7038"/>
+    <circle cx="788" cy="362" r="30" fill="#5d8442"/><circle cx="828" cy="366" r="24" fill="#668f49"/>
+    <ellipse cx="1110" cy="416" rx="46" ry="24" fill="#4c7038"/>
+    <circle cx="1094" cy="402" r="26" fill="#5d8442"/><circle cx="1130" cy="406" r="22" fill="#668f49"/>
+    <ellipse cx="1510" cy="190" rx="48" ry="26" fill="#4c7038"/>
+    <circle cx="1494" cy="176" r="28" fill="#5d8442"/><circle cx="1532" cy="182" r="22" fill="#668f49"/>
+    <ellipse cx="610" cy="860" rx="56" ry="28" fill="#4c7038"/>
+    <circle cx="592" cy="846" r="32" fill="#5d8442"/><circle cx="634" cy="850" r="24" fill="#668f49"/>
+  </g>
+  <g fill="#9b927e" stroke="#746d5c" stroke-width="5">
+    <path d="M462 118 L500 102 L536 124 L524 156 L482 160 Z"/>
+    <path d="M1322 838 L1358 824 L1390 846 L1378 878 L1338 876 Z"/>
+    <path d="M1016 190 L1042 180 L1064 198 L1054 222 L1024 218 Z"/>
+  </g>
+
+  <!-- flores do cerrado -->
+  <g fill="#f0c95a">
+    <circle cx="248" cy="330" r="6"/><circle cx="264" cy="342" r="5"/><circle cx="684" cy="260" r="6"/>
+    <circle cx="702" cy="270" r="5"/><circle cx="950" cy="390" r="6"/><circle cx="968" cy="380" r="5"/>
+    <circle cx="1240" cy="320" r="6"/><circle cx="1258" cy="332" r="5"/><circle cx="520" cy="880" r="6"/>
+  </g>
+  <g fill="#e08a68">
+    <circle cx="356" cy="214" r="6"/><circle cx="370" cy="226" r="5"/><circle cx="1450" cy="700" r="6"/>
+    <circle cx="1468" cy="712" r="5"/><circle cx="760" cy="860" r="6"/><circle cx="778" cy="870" r="5"/>
+  </g>
+
+  <!-- entrada / portão -->
+  <g>
+    <rect x="-20" y="604" width="70" height="22" rx="8" fill="#7d5d35"/>
+    <rect x="-20" y="486" width="70" height="22" rx="8" fill="#7d5d35"/>
+    <path d="M40 486 L40 626" stroke="#9c7747" stroke-width="12"/>
+  </g>
+</svg>
